@@ -23,6 +23,7 @@ fn write_entry(
     a_worst: String,
     a_new: String,
     a_learn: String,
+    a_dream: String,
     a_breifing: String,
 ) -> std::io::Result<()> {
     let mut file = File::create(format!("./data/{at_date}.md"))?;
@@ -33,15 +34,12 @@ fn write_entry(
     writeln!(file, "* **Nota**: {}/5\n\n", a_how_day)?;
 
     writeln!(file, "## Q&A\n")?;
-    writeln!(
-        file,
-        format_line("* **Lo más destacado**: {}", a_remarkable)
-    )?;
+    writeln!(file, "* **Lo más destacado**: {}", a_remarkable)?;
     writeln!(file, "* **Lo mejor**: {}", a_best)?;
     writeln!(file, "* **Lo peor**: {}", a_worst)?;
     writeln!(file, "* **He conocidos**: {}", a_new)?;
     writeln!(file, "* **He aprendido**: {}\n", a_learn)?;
-
+    writeln!(file, "* **He soñado**: {}\n", a_dream)?;
     // TODO: format text to max 80 chars per line
     writeln!(file, "## Resumen\n")?;
     writeln!(file, "{}", a_breifing)?;
@@ -71,17 +69,19 @@ fn format_line(line: String) -> String {
 
 fn main() {
     // TODO enable to set the date from args
+    // TODO write formatted.
+    //
     let yesterday_date = Local::now() - Duration::days(1);
     let at_date = yesterday_date.format("%Y-%m-%d");
     println!("Welcome to the diary on {at_date}");
     println!("---------------------------------");
 
-    let lorem = String::from(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequ. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    );
-    let lines = format_line(lorem);
-    println!("{}", lines);
-    return;
+    //let lorem = String::from(
+    //    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequ. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    //);
+    //let lines = format_line(lorem);
+    //println!("{}", lines);
+    //return;
 
     let answer_how_day = ask_question("How was your day? (1-5):");
 
@@ -107,6 +107,7 @@ fn main() {
         answer_worst,
         answer_who_new,
         answer_learn,
+        answer_dream,
         answer_breif,
     );
     match resp {
